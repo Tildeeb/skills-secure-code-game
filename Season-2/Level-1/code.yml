@@ -9,3 +9,20 @@
 #     .github/
 #             > workflows/
 #                         > jarvis-code.yml
+name: CODE - Jarvis Gone Wrong
+
+on:
+  push:
+    paths:
+      - ".github/workflows/jarvis-code.yml"
+
+jobs:
+  jarvis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check GitHub Status
+        run: |
+          STATUS=$(curl -s https://www.githubstatus.com/api/v2/status.json | jq -r '.status.description')
+          echo "GitHub Status: $STATUS"
